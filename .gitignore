@@ -1,0 +1,8 @@
+.vs/
+.vscode/
+bin/
+obj/
+node_modules/
+*.user
+*.suo
+**/local.settings.json
