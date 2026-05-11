@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3245275A-F4D1-426E-A44E-3BC2EF2D37DA}</ProjectGuid>
+    <ProjectGuid>{5E2D5D75-0945-F1CB-DB41-1887064A6B59}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ContosoIMS.Plugin</RootNamespace>
@@ -92,8 +92,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StockUpdatePlugin.cs" />
+    <Compile Include="Constants\OptionSetValues.cs" />
+    <Compile Include="Constants\SchemaNames.cs" />
+    <Compile Include="Constants\TransactionTypes.cs" />
+    <Compile Include="Models\AzureFunctionResponse.cs" />
+    <Compile Include="Models\PluginConfig.cs" />
+    <Compile Include="Models\PluginContextResult.cs" />
+    <Compile Include="Models\StockUpdateRequest.cs" />
+    <Compile Include="Models\ValidationResult.cs" />
+    <Compile Include="Services\AzureFunctionClient.cs" />
+    <Compile Include="Services\EntityAttributeReader.cs" />
+    <Compile Include="Services\IAzureFunctionClient.cs" />
+    <Compile Include="Services\IPluginConfigProvider.cs" />
+    <Compile Include="Services\IPluginContextValidator.cs" />
+    <Compile Include="Services\IPluginLogger.cs" />
+    <Compile Include="Services\IStockUpdateProcessor.cs" />
+    <Compile Include="Services\IStockUpdateProcessorFactory.cs" />
+    <Compile Include="Services\IStockUpdateRepository.cs" />
+    <Compile Include="Services\IStockUpdateRequestMapper.cs" />
+    <Compile Include="Services\IStockUpdateValidator.cs" />
+    <Compile Include="Services\PluginConfigProvider.cs" />
+    <Compile Include="Services\PluginContextValidator.cs" />
+    <Compile Include="Services\PluginLogger.cs" />
+    <Compile Include="Services\StockUpdateProcessor.cs" />
+    <Compile Include="Services\StockUpdateProcessorFactory.cs" />
+    <Compile Include="Services\StockUpdateRepository.cs" />
+    <Compile Include="Services\StockUpdateRequestMapper.cs" />
+    <Compile Include="Services\StockUpdateValidator.cs" />
+    <Compile Include="Services\StringHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\WebExceptionParser.cs" />
+    <Compile Include="StockUpdatePlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
