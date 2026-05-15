@@ -42,7 +42,8 @@ namespace ContosoIMS.Plugin.Services
             catch (Exception ex)
             {
                 _tracing.Trace("UpdateRecord failed: " + ex.Message);
-                throw;
+                throw new InvalidPluginExecutionException(
+                    "Failed to update stock update record " + recordId + ": " + ex.Message, ex);
             }
         }
     }

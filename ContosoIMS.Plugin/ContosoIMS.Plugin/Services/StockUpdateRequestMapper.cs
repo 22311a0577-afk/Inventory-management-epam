@@ -7,7 +7,7 @@ namespace ContosoIMS.Plugin.Services
     /// <inheritdoc />
     public class StockUpdateRequestMapper : IStockUpdateRequestMapper
     {
-        public StockUpdateRequest Map(Entity target)
+        public StockUpdateRequest Map(Entity target , string requestedByEmail)
         {
             int transactionTypeValue = EntityAttributeReader.GetOptionSetValue(target, SchemaNames.TransactionType);
             string transactionType = transactionTypeValue == OptionSetValues.TransactionType_Inbound
@@ -20,7 +20,8 @@ namespace ContosoIMS.Plugin.Services
                 quantity        = EntityAttributeReader.GetInteger(target, SchemaNames.Quantity),
                 source          = EntityAttributeReader.GetString(target, SchemaNames.Source),
                 notes           = EntityAttributeReader.GetString(target, SchemaNames.Notes),
-                transactionType = transactionType
+                transactionType = transactionType,
+                requestedBy     = requestedByEmail
             };
         }
     }

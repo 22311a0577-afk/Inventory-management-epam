@@ -18,12 +18,18 @@ namespace ContosoIMS.Plugin.Services
 
         public AzureFunctionClient(PluginConfig config, ITracingService tracing)
         {
+            if (config == null) throw new ArgumentNullException("config");
+            if (string.IsNullOrWhiteSpace(config.FunctionUrl))
+                throw new InvalidPluginExecutionException("Azure Function URL is not configured.");
+
             _config = config;
             _tracing = tracing;
         }
 
         public AzureFunctionResponse Send(StockUpdateRequest request)
         {
+            if (request == null) throw new ArgumentNullException("request");
+
             string jsonPayload = JsonConvert.SerializeObject(request);
             _tracing.Trace("Payload: " + jsonPayload);
 

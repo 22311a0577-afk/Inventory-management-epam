@@ -12,7 +12,7 @@ namespace ContosoIMS.Plugin.Services
             var tracing = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             var context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             var factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
-            IOrganizationService orgService = factory.CreateOrganizationService(context.UserId);
+            IOrganizationService orgService = factory.CreateOrganizationService(context.InitiatingUserId);
 
             IPluginLogger logger = new PluginLogger(tracing);
 
@@ -22,6 +22,7 @@ namespace ContosoIMS.Plugin.Services
                 new AzureFunctionClient(config, tracing),
                 new StockUpdateRepository(orgService, tracing),
                 new WebExceptionParser(logger),
+                new UserEmailResolver(orgService),
                 logger);
         }
     }

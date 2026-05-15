@@ -49,18 +49,23 @@ namespace ContosoIMS.Plugin
 
         public void Execute(IServiceProvider serviceProvider)
         {
+            if (serviceProvider == null) throw new ArgumentNullException("serviceProvider");
+
             var tracing = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
             var context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+
+            if (context == null)
+                throw new InvalidPluginExecutionException("IPluginExecutionContext is not available.");
 
             PluginContextResult contextResult = _contextValidator.Validate(context);
             if (!contextResult.ShouldExecute)
             {
-                tracing.Trace("Skipping — " + contextResult.SkipReason);
+                if (tracing != null) tracing.Trace("Skipping — " + contextResult.SkipReason);
                 return;
             }
 
             IStockUpdateProcessor processor = _processorFactory.Create(serviceProvider, _config);
-            processor.Process(contextResult.Target, contextResult.RecordId);
+            processor.Process(contextResult.Target, contextResult.RecordId, context.InitiatingUserId);
         }
     }
 }

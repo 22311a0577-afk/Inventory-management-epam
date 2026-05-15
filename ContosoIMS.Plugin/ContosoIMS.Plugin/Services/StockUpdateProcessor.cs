@@ -17,6 +17,7 @@ namespace ContosoIMS.Plugin.Services
         private readonly IAzureFunctionClient      _functionClient;
         private readonly IStockUpdateRepository    _repository;
         private readonly IWebExceptionParser       _webExceptionParser;
+        private readonly IUserEmailResolver        _userEmailResolver;
         private readonly IPluginLogger             _logger;
 
         public StockUpdateProcessor(
@@ -25,6 +26,7 @@ namespace ContosoIMS.Plugin.Services
             IAzureFunctionClient functionClient,
             IStockUpdateRepository repository,
             IWebExceptionParser webExceptionParser,
+            IUserEmailResolver userEmailResolver,
             IPluginLogger logger)
         {
             _mapper             = mapper;
@@ -32,14 +34,17 @@ namespace ContosoIMS.Plugin.Services
             _functionClient     = functionClient;
             _repository         = repository;
             _webExceptionParser = webExceptionParser;
+            _userEmailResolver = userEmailResolver;
             _logger             = logger;
         }
 
-        public void Process(Entity target, Guid recordId)
+        public void Process(Entity target, Guid recordId, Guid initiatingUserId)
         {
             _logger.LogFormat("StockUpdatePlugin started. Record ID: {0}", recordId);
 
-            StockUpdateRequest request = _mapper.Map(target);
+            string requestedBy = _userEmailResolver.GetInternalEmail(initiatingUserId);
+
+            StockUpdateRequest request = _mapper.Map(target, requestedBy);
             _logger.LogFormat("Read values — SKU: {0}, Type: {1}, Qty: {2}, Source: {3}",
                 request.sku, request.transactionType, request.quantity, request.source);
 

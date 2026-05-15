@@ -111,6 +111,7 @@
     <Compile Include="Services\IStockUpdateRepository.cs" />
     <Compile Include="Services\IStockUpdateRequestMapper.cs" />
     <Compile Include="Services\IStockUpdateValidator.cs" />
+    <Compile Include="Services\IUserEmailResolver.cs" />
     <Compile Include="Services\PluginConfigProvider.cs" />
     <Compile Include="Services\PluginContextValidator.cs" />
     <Compile Include="Services\PluginLogger.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Services\StockUpdateValidator.cs" />
     <Compile Include="Services\StringHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UserEmailResolver.cs" />
     <Compile Include="Services\WebExceptionParser.cs" />
     <Compile Include="StockUpdatePlugin.cs" />
   </ItemGroup>
